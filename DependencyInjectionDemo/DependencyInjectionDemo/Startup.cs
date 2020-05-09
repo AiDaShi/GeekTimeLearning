@@ -78,7 +78,8 @@ namespace DependencyInjectionDemo
             #endregion
 
             #region 移除和替换注册
-            //services.Replace(ServiceDescriptor.Singleton<IOrderService, OrderServiceEx>());
+            //替换
+            services.Replace(ServiceDescriptor.Singleton<IOrderService, OrderServiceEx>());
             //删除
             services.RemoveAll<IOrderService>();
 
