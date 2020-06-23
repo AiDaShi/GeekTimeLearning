@@ -12,6 +12,7 @@ namespace DependencyInjectionScopeAndDisposableDemo.Services
 
     public class DisposableOrderService : IOrderService, IDisposable
     {
+
         public void Dispose()
         {
             Console.WriteLine($"DisposableOrderService Disposed:{this.GetHashCode()}");
