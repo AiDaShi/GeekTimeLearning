@@ -12,17 +12,24 @@ namespace ConfigurationDemo
             var builder = new ConfigurationBuilder();
             builder.AddJsonFile("appsetting.json",optional:false,reloadOnChange:true);
             var configurationRoot = builder.Build();
-
-            IChangeToken changeToken = configurationRoot.GetReloadToken();
-
-            ChangeToken.OnChange(() => configurationRoot.GetReloadToken(), () => {
-                Console.WriteLine($"Key1:{configurationRoot["Key1"]}");
-                Console.WriteLine($"Key2:{configurationRoot["Key2"]}");
-                Console.WriteLine($"Key3:{configurationRoot["Key3"]}");
-
-            });
-
+            var config = new Config() { 
+                Key1="config Key1",
+                Key5=false,
+                Key6=1000
+            };
+            configurationRoot.GetSection("OrderService")
+                .Bind(config,binderOptions=> { binderOptions.BindNonPublicProperties = true; });
+            Console.WriteLine($"Key1:{config.Key1}");
+            Console.WriteLine($"Key5:{config.Key5}");
+            Console.WriteLine($"Key6:{config.Key6}");
             Console.ReadKey();
+        }
+        class Config
+        {
+            public string Key1 { get; set; }
+            public bool Key5 { get; set; }
+            public int Key6 { get; set; }
+
         }
     }
 }
